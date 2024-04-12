@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Editor;
 using UnityEngine;
 using UnityEditor;
@@ -9,7 +10,7 @@ public class ResourceManagementWindow : EditorWindow
 {
     private static string _path = $"Assets/Editor/ResourceManagementWindowEditor/Resources";
     private static string _resourceListSOPath;
-    
+    private static string _newEnumName = "";
     private static Vector2 materialListScroll = Vector2.zero;
     private static ResourceManagementWindowSaveDataSO _resourceManagementWindowSaveDataSO;
     private ResourceListSO _resourceListSO;
@@ -41,8 +42,6 @@ public class ResourceManagementWindow : EditorWindow
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
-
-
     
     private void OnGUI()
     {
@@ -119,6 +118,15 @@ public class ResourceManagementWindow : EditorWindow
                     }    
                 }
                 GUI.color = Color.white;
+                // GUILayout.BeginHorizontal();
+                // {
+                //     _newEnumName = GUILayout.TextArea(_newEnumName, 30);
+                //     if (GUILayout.Button("Add Enum", GUILayout.Width(100f)))
+                //     {
+                //
+                //     }    
+                // }
+                // GUILayout.EndHorizontal();
             }
         }
         GUILayout.EndArea();
@@ -284,5 +292,4 @@ public class ResourceManagementWindow : EditorWindow
 
         return -1;
     }
-    
 }
