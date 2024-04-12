@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adddd84aa66be73418350506a880ce7c, type: 3}
   m_Name: ResourceManagementWindowSaveDataSO
   m_EditorClassIdentifier: 
-  AssetPath: 00_Database/SO/ResourcesSO/ResourceListSO
   CurrentResourceListSO: {fileID: 11400000, guid: e2b50b2a68a199447a6442677e13d882, type: 2}
