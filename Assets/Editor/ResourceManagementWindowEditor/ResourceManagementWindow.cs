@@ -15,7 +15,7 @@ public class ResourceManagementWindow : EditorWindow
     private static ResourceManagementWindowSaveDataSO _resourceManagementWindowSaveDataSO;
     private ResourceListSO _resourceListSO;
     private ResourceSO _currentSelectedResourceSO;
-    
+    private Rect viewRect;
     [MenuItem ("Tools/ResourceManagement")]
     public static void  ShowWindow () {
         var window = EditorWindow.GetWindow(typeof(ResourceManagementWindow));
@@ -145,7 +145,8 @@ public class ResourceManagementWindow : EditorWindow
             
             GUILayout.BeginHorizontal();
             {
-                GUILayout.BeginScrollView(materialListScroll, false, true);
+                viewRect = new Rect(0, 0, 0, 55f * (_resourceListSO.resourceList.Length + 1));
+                materialListScroll = GUI.BeginScrollView(new Rect(0,0,mainSettingAreaRect.width, mainSettingAreaRect.height), materialListScroll, viewRect, false, true);
                 {
                     Rect btnRect = new Rect(0, 0, mainSettingAreaRect.width-60f, 50f);
                     for (int i = 0; i < _resourceListSO.resourceList.Length; ++i)
@@ -165,7 +166,7 @@ public class ResourceManagementWindow : EditorWindow
 
                     GUI.color = Color.white;
                 }
-                GUILayout.EndScrollView();    
+                GUI.EndScrollView();    
             }
             GUILayout.EndHorizontal();
         }
@@ -278,18 +279,5 @@ public class ResourceManagementWindow : EditorWindow
         AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(targetElement));
         EditorUtility.SetDirty(_resourceListSO);
         AssetDatabase.SaveAssets();
-    }
-    
-    private int FindElement(ResourceSO[] array, ResourceSO targetElement)
-    {
-        for (int i = 0; i < array.Length; ++i)
-        {
-            if (array[i] == targetElement)
-            {
-                return i;
-            }
-        }
-
-        return -1;
     }
 }
