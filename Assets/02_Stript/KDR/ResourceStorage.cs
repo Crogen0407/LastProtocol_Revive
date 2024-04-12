@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ResourceStorage : MonoBehaviour
 {
-    private int[] resourceAmountArr;
+    public int[] resourceAmountArr;
 
     public virtual void Awake()
     {

@@ -220,12 +220,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0bed83d8ad7b3c44aac0e7c393d27d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  defaultSpeed: 10
+  loadingSpeed: 1
+  speedChangeSpeed: 7
   currentLoadResource: 0
-  maxResourceLoad: 10
-  currentResourceLoad: 0
-  startTrm: {fileID: 1535537679}
-  endTrm: {fileID: 2102874085}
+  loadResource: 0
+  maxResourceLoadAmount: 10
+  currentResourceLoadAmount: 0
+  loadingTime: 0.25
+  loadingTimeDeviation: 0.05
+  defaultRotationSpeed: 5
+  loadingRotationSpeed: 10
+  startResourceStorage: {fileID: 1535537680}
+  endResourceStorage: {fileID: 2102874086}
+  collisionRadius: 0.5
+  whatIsStorageObject:
+    serializedVersion: 2
+    m_Bits: 64
+  isGoing: 0
+  isLoading: 0
 --- !u!1 &807598630
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,7 +296,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 175410631
   m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -321,7 +334,8 @@ GameObject:
   - component: {fileID: 1535537679}
   - component: {fileID: 1535537678}
   - component: {fileID: 1535537680}
-  m_Layer: 0
+  - component: {fileID: 1535537681}
+  m_Layer: 6
   m_Name: Planet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,8 +380,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 175410631
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 42bf54e3093439346b29f0f3004e6fb3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -389,7 +403,7 @@ Transform:
   m_GameObject: {fileID: 1535537677}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.32, y: 1.02, z: 0}
+  m_LocalPosition: {x: 10.7, y: -4.69, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -407,7 +421,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d94cbcded2208d4458034deab842b357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetSO: {fileID: 0}
+  resourceAmountArr: 
+  planetSO: {fileID: 11400000, guid: 776ad045355aa7e47be6faf18f002399, type: 2}
+--- !u!58 &1535537681
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535537677}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &1697657355
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,7 +520,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -556,7 +606,8 @@ GameObject:
   - component: {fileID: 2102874085}
   - component: {fileID: 2102874084}
   - component: {fileID: 2102874086}
-  m_Layer: 0
+  - component: {fileID: 2102874087}
+  m_Layer: 6
   m_Name: Planet_DDR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -601,8 +652,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 175410631
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2d27f274fafcc284fa1cab40ac4fa165, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -624,7 +675,7 @@ Transform:
   m_GameObject: {fileID: 2102874083}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.09, y: 0.09, z: 0}
+  m_LocalPosition: {x: -10.4, y: -2.2, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -642,7 +693,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d94cbcded2208d4458034deab842b357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetSO: {fileID: 0}
+  resourceAmountArr: 
+  planetSO: {fileID: 11400000, guid: 776ad045355aa7e47be6faf18f002399, type: 2}
+--- !u!58 &2102874087
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102874083}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
