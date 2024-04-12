@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public enum Resource
 {
-    //°íÃ¼
+    //ê³ ì²´
     None,
     Iron,
     Copper,
@@ -19,17 +19,17 @@ public enum Resource
     Lithium,
     Neodymium,
 
-    //¾×Ã¼
+    //ì•¡ì²´
     Water,
     Oil,
     LiquidNitrogen,
 
-    //±âÃ¼
+    //ê¸°ì²´
     Hydrogen,
     Oxygen,
     MethaneGas,
 
-    //¹°Ã¼
+    //ë¬¼ì²´
     Glass,
     Semiconductor,
     CopperWire,

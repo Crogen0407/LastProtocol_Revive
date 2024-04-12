@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -121,7 +121,70 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Sakuya_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1324.6666
+        height: 2732
+      alignment: 9
+      pivot: {x: 0.4302127, y: 0.49864963}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0e069a143ba706449982891789bffd0
+      internalID: -1539451611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sakuya_1
+      rect:
+        serializedVersion: 2
+        x: 1323
+        y: 0
+        width: 1377
+        height: 2732
+      alignment: 9
+      pivot: {x: 0.49125198, y: 0.49999997}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf6618f9167697748b124b9c0401abff
+      internalID: 1370535718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sakuya_2
+      rect:
+        serializedVersion: 2
+        x: 2700
+        y: 0
+        width: 1273
+        height: 2732
+      alignment: 9
+      pivot: {x: 0.4495327, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e3ff48cc3cf3bb43ab7b527e58b00a6
+      internalID: 1198935622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +195,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Sakuya_0: -1539451611
+      Sakuya_1: 1370535718
+      Sakuya_2: 1198935622
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
