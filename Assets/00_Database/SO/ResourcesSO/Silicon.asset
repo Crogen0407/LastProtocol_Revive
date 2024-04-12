@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 880fe39f299cfe640ac44a9e9d06a622, type: 3}
-  m_Name: ResourceList
+  m_Script: {fileID: 11500000, guid: 64290773dff5ed249ae1506748dd92bd, type: 3}
+  m_Name: Silicon
   m_EditorClassIdentifier: 
-  resourceList:
-  - {fileID: 11400000, guid: eb1e105f716ebb145ad33bbe7dba096a, type: 2}
-  - {fileID: 11400000, guid: b82bac57f4c785641a5e4514b14cd6ce, type: 2}
+  resource: 6
+  sprite: {fileID: 0}
+  recipe: 

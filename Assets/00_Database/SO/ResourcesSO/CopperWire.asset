@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64290773dff5ed249ae1506748dd92bd, type: 3}
   m_Name: CopperWire
   m_EditorClassIdentifier: 
-  resource: 19
+  resource: 0
   sprite: {fileID: 0}
   recipe: 1500000012000000
