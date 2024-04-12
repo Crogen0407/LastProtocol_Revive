@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: LiquidNitrogen
   m_EditorClassIdentifier: 
   resource: 13
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: b910f287e06b2e744a8895a661983016, type: 3}
   recipe: 

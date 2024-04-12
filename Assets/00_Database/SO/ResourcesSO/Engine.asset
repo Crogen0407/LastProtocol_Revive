@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64290773dff5ed249ae1506748dd92bd, type: 3}
-  m_Name: CopperWire
+  m_Name: Engine
   m_EditorClassIdentifier: 
-  resource: 0
-  sprite: {fileID: 0}
-  recipe: 1500000012000000
+  resource: 25
+  sprite: {fileID: 21300000, guid: 09eefbe6c0451de4db96c269f8bb4db7, type: 3}
+  recipe: 050000000c00000014000000

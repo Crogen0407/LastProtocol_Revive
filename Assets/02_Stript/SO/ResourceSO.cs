@@ -32,9 +32,9 @@ public enum Resource
     //물체
     Glass,
     Semiconductor,
-    CopperWire,
-    GoldWire,
-    GlassWire,
+    CopperCable,
+    GoldCable,
+    GlassCable,
     SolarPanel,
     Battery,
     Plastic,

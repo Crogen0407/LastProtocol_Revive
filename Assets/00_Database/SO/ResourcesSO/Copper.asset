@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Copper
   m_EditorClassIdentifier: 
   resource: 2
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: f726d2f9bfc03bc4c98e7046f1086a31, type: 3}
   recipe: 

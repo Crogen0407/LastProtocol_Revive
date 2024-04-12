@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Iron
   m_EditorClassIdentifier: 
   resource: 1
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: da2a3721a4d256f4b9beb9bf486db9f3, type: 3}
   recipe: 19000000150000000b000000
