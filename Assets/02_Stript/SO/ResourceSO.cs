@@ -10,4 +10,25 @@ public class ResourceSO : ScriptableObject
     public Sprite sprite;
     public Resource[] recipe;
     public float makingTime = -1f;
+
+    private Dictionary<Resource, int> recipeResourceCountDictionary;
+    public Dictionary<Resource, int> RecipeResourceCountDictionary
+    {
+        get
+        {
+            if (makingTime == -1) return null;
+            if (recipeResourceCountDictionary == null)
+            {
+                recipeResourceCountDictionary = new Dictionary<Resource, int>();
+                foreach (Resource resource in recipe)
+                {
+                    if (recipeResourceCountDictionary.TryAdd(resource, 1) == false)
+                    {
+                        recipeResourceCountDictionary[resource]++;
+                    }
+                }
+            }
+            return recipeResourceCountDictionary;
+        }
+    }
 }

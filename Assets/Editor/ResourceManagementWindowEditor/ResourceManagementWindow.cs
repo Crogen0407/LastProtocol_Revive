@@ -82,7 +82,8 @@ public class ResourceManagementWindow : EditorWindow
             }
 
             //ResourceListSO에 할당하기
-            _resourceListSO = EditorGUILayout.ObjectField(
+            _resourceListSO = 
+                EditorGUILayout.ObjectField(
                     _resourceManagementWindowSaveDataSO.CurrentResourceListSO, 
                     typeof(ResourceListSO)) as ResourceListSO;
             
