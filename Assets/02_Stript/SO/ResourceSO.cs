@@ -9,4 +9,5 @@ public class ResourceSO : ScriptableObject
     public Resource resource;
     public Sprite sprite;
     public Resource[] recipe;
+    public float makingTime = -1f;
 }
