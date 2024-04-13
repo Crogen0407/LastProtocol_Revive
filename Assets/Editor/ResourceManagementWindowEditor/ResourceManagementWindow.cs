@@ -189,7 +189,18 @@ public class ResourceManagementWindow : EditorWindow
                 //RecipeArray
                 SerializedProperty property = o.FindProperty("recipe");
                 EditorGUILayout.PropertyField(property, true);
-
+                
+                //makingTime
+                if (_currentSelectedResourceSO.recipe != null && _currentSelectedResourceSO.recipe .Length != 0)
+                {
+                    _currentSelectedResourceSO.makingTime =
+                        EditorGUILayout.FloatField("Making Time", _currentSelectedResourceSO.makingTime);    
+                }
+                else
+                {
+                    _currentSelectedResourceSO.makingTime = -1f;
+                }
+                
                 o.ApplyModifiedProperties();
                 o.Update();
                 AssetDatabase.SaveAssets();
