@@ -537,7 +537,7 @@ Transform:
   m_GameObject: {fileID: 661625179}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.22, y: -2.23, z: 0}
+  m_LocalPosition: {x: -1.896, y: -0.869, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -807,7 +807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d94cbcded2208d4458034deab842b357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceAmountArr: 
+  resourceAmountArr: []
   planetSO: {fileID: 11400000, guid: 776ad045355aa7e47be6faf18f002399, type: 2}
 --- !u!58 &1535537681
 CircleCollider2D:
@@ -1079,7 +1079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d3f8bcd7be9a349978ce47b08066de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceAmountArr: 
+  resourceAmountArr: []
   makeResource: 19
   makeTime: 1
   isMakeable: 1
@@ -1216,7 +1216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d94cbcded2208d4458034deab842b357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceAmountArr: 
+  resourceAmountArr: []
   planetSO: {fileID: 11400000, guid: 776ad045355aa7e47be6faf18f002399, type: 2}
 --- !u!58 &2102874087
 CircleCollider2D:

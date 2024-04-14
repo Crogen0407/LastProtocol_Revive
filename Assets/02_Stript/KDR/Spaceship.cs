@@ -1,10 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 
 public class Spaceship : MonoBehaviour
@@ -45,7 +40,7 @@ public class Spaceship : MonoBehaviour
     [SerializeField]
     private ResourceStorage endResourceStorage;
     private ResourceStorage targetResourceStorage;
-    private float linkDistance 
+    private float linkDistance
         => (startResourceStorage.transform.position - endResourceStorage.transform.position).magnitude;
     [SerializeField]
     private float collisionRadius;
@@ -154,7 +149,7 @@ public class Spaceship : MonoBehaviour
 
     private void Move()
     {
-        cueentSpeed = Mathf.Lerp(cueentSpeed, (isLoading ? loadingSpeed : defaultSpeed), 
+        cueentSpeed = Mathf.Lerp(cueentSpeed, (isLoading ? loadingSpeed : defaultSpeed),
             Time.fixedDeltaTime * speedChangeSpeed);
         transform.position += transform.up * cueentSpeed * Time.fixedDeltaTime;
     }
@@ -164,7 +159,7 @@ public class Spaceship : MonoBehaviour
         targetRotation = Quaternion.LookRotation(
                 -Vector3.forward,
                 targetResourceStorage.transform.position - transform.position);
-        transform.rotation = 
+        transform.rotation =
             Quaternion.Lerp(transform.rotation, targetRotation,
             (isLoading ? loadingRotationSpeed : defaultRotationSpeed) * Time.fixedDeltaTime);
     }
