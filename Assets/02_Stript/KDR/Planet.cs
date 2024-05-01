@@ -7,7 +7,7 @@ public class Planet : ResourceStorage
     [SerializeField]
     private PlanetSO planetSO;
 
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
     }

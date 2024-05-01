@@ -17,7 +17,7 @@ public class Satellite : ResourceStorage
     [SerializeField]
     private bool isMakeable = true;
 
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
     }

@@ -12,16 +12,13 @@ public struct ResourceAndCount
     public int count;
 }
 
-public class ResourceStorage : MonoBehaviour
+public class ResourceStorage : Selectable
 {
     public ResourceAndCount[] resourceAmountArr;
 
-    private SpriteRenderer spriteRenderer;
-    private Material material;
-    private int onSelectMatHash;
-
-    public virtual void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         resourceAmountArr = new ResourceAndCount[(int)Resource.Count];
 
         string[] names = Enum.GetNames(typeof(Resource));
@@ -29,10 +26,6 @@ public class ResourceStorage : MonoBehaviour
         {
             resourceAmountArr[i].name = names[i];
         }
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        material = spriteRenderer.material;
-        onSelectMatHash = Shader.PropertyToID("_OutLineOn");
     }
 
     public int GetResource(Resource resource)
@@ -53,19 +46,5 @@ public class ResourceStorage : MonoBehaviour
 
         resourceAmountArr[(int)resource].count -= count;
         return true;
-    }
-
-
-    private void OnMouseEnter()
-    {
-        material.SetInt(onSelectMatHash, 1);
-    }
-    private void OnMouseExit()
-    {
-        material.SetInt(onSelectMatHash, 0);
-    }
-    private void OnMouseDown()
-    {
-        Debug.Log("마우스 클릭!");
     }
 }

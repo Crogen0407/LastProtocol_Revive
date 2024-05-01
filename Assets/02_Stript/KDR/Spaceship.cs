@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Spaceship : MonoBehaviour
+public class Spaceship : Selectable
 {
     [Header("Spaceship Setting")]
     [SerializeField]
