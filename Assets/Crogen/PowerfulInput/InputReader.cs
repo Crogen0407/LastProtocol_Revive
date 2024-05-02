@@ -44,7 +44,6 @@ namespace Crogen.PowerfulInput
                 MouseDownEvent?.Invoke();
             if (context.canceled)
                 MouseUpEvent?.Invoke();
-            
         }
     }
 }

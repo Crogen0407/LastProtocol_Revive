@@ -1,29 +1,29 @@
 using Crogen.PowerfulInput;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SelectManager : MonoSingleton<SelectManager>
 {
     [SerializeField] private LayerMask whatIsSelectable;
-    [SerializeField] private InputReader inputReader;
 
     private Selectable currentSelectTarget;
 
     private void Awake()
     {
-        inputReader.MouseDownEvent += HandleMouseDownEvent;
-        inputReader.MouseUpEvent += HandleMouseUpEvent;
+        InputManager.Instance.inputReader.MouseDownEvent += HandleMouseDownEvent;
+        InputManager.Instance.inputReader.MouseUpEvent += HandleMouseUpEvent;
     }
 
     private void HandleMouseDownEvent()
     {
-        currentSelectTarget.MouseDown();
+        currentSelectTarget?.MouseDown(InputManager.Instance.mouseWorldPos);
     }
 
     private void HandleMouseUpEvent()
     {
-        currentSelectTarget.MouseUp();
+        currentSelectTarget?.MouseUp(InputManager.Instance.mouseWorldPos);
     }
 
     private void Update()
@@ -32,12 +32,20 @@ public class SelectManager : MonoSingleton<SelectManager>
         {
             if (currentSelectTarget != selectable)
             {
-                if (currentSelectTarget != null) currentSelectTarget.ExitCursor();
+                currentSelectTarget?.ExitCursor();
                 currentSelectTarget = selectable;
                 currentSelectTarget.EnterCursor();
             }
         }
-        if (currentSelectTarget != null) currentSelectTarget.StayCursor();
+        else
+        {
+            if (currentSelectTarget != null)
+            {
+                currentSelectTarget.ExitCursor();
+                currentSelectTarget = null;
+            }
+        }
+        currentSelectTarget?.StayCursor();
     }
 
     public bool IsSelectable(out Selectable selectable)

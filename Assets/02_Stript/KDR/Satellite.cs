@@ -4,15 +4,59 @@ using UnityEngine;
 
 public class Satellite : ResourceStorage
 {
-    [SerializeField]
-    private Resource makeResource;
-    [SerializeField]
-    private float makeTime = 1f;
+    public static Satellite satellite;
+
+    [Header("ResourceMakeSetting")]
+    [SerializeField] private Resource makeResource;
+    [SerializeField] private float makeTime = 1f;
     private float currentMakeTime = 0f;
+
+
+    [Header("ResourceMakeSetting")]
+    [SerializeField] private float speed = 5f;
+
+    private Vector2 targetPos;
+
 
     private Dictionary<Resource, int> currentMakeResourceRecipeDictionary = null;
 
+    Coroutine moveCoroutine;
 
+    public override void MouseDown(Vector2 mousePos)
+    {
+        base.MouseDown(mousePos);
+
+        if (satellite != null) return;
+
+        if (satellite == this)
+        {
+            targetPos = mousePos;
+
+            if (moveCoroutine != null) StopCoroutine(moveCoroutine);
+            moveCoroutine = StartCoroutine(MoveCoroutine());
+
+            return;
+        }
+        satellite = this;
+    }
+
+    private IEnumerator MoveCoroutine()
+    {
+        float time = targetPos.magnitude / speed;
+        float percent = 0;
+        float current = 0;
+
+        Vector2 startPos = transform.position;
+
+        while (percent < 1)
+        {
+            current += Time.deltaTime;
+            percent = current / time;
+
+            transform.position = Vector2.Lerp(startPos, targetPos, percent);
+            yield return null;
+        }
+    }
 
     [SerializeField]
     private bool isMakeable = true;
