@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Editor/DialogGenerato.uss?fileID=7433441132597879392&amp;guid=d1c538f034a542e42ae3046833927f8c&amp;type=3#DialogGenerato" />
+    <ui:VisualElement name="normal-scripts" style="width: auto; height: auto; background-color: rgb(56, 56, 56); border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;">
+        <ui:Label tabindex="-1" text="Normal Scripts" parse-escape-sequences="true" display-tooltip-when-elided="true" name="name-label" style="border-bottom-width: 1px; border-bottom-color: rgb(255, 255, 255); color: rgb(255, 255, 255); -unity-font: url(&apos;project://database/Assets/10.Fonts/Cafe24Classictype-v1.1/Cafe24Classictype-v1.1/Cafe24Classictype-v1.1.ttf?fileID=12800000&amp;guid=349975925daaa69409a5729a2f3b5bd2&amp;type=3#Cafe24Classictype-v1.1&apos;); -unity-font-definition: initial;" />
+        <ui:TextField picking-mode="Ignore" label="이름" value="name" name="name-label" class="name-label" />
+        <ui:TextField picking-mode="Ignore" label="내용" value="contents" name="contents" class="contents" style="font-size: 17px;" />
+        <uie:ObjectField label="다음 스크립트" type="ScriptSO, Assembly-CSharp" name="next-scripts" allow-scene-objects="false" class="next-scripts" style="-unity-text-align: upper-left;" />
+    </ui:VisualElement>
+</ui:UXML>
