@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 
 namespace Crogen.ObjectPooling.Editor
@@ -64,3 +65,4 @@ namespace Crogen.ObjectPooling.Editor
     }
 }
 
+#endif
