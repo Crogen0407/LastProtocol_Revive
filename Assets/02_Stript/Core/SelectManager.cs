@@ -8,7 +8,9 @@ public class SelectManager : MonoSingleton<SelectManager>
 {
     [SerializeField] private LayerMask whatIsSelectable;
 
-    private Selectable currentSelectTarget;
+    private Selectable currentSelectedTarget;
+
+    public bool isSelectable;
 
     private void Awake()
     {
@@ -18,34 +20,34 @@ public class SelectManager : MonoSingleton<SelectManager>
 
     private void HandleMouseDownEvent()
     {
-        currentSelectTarget?.MouseDown(InputManager.Instance.mouseWorldPos);
+        currentSelectedTarget?.MouseDown(InputManager.Instance.mouseWorldPos);
     }
 
     private void HandleMouseUpEvent()
     {
-        currentSelectTarget?.MouseUp(InputManager.Instance.mouseWorldPos);
+        currentSelectedTarget?.MouseUp(InputManager.Instance.mouseWorldPos);
     }
 
     private void Update()
     {
-        if (IsSelectable(out Selectable selectable))
+        if (isSelectable == false && IsSelectable(out Selectable selectable))
         {
-            if (currentSelectTarget != selectable)
+            if (currentSelectedTarget != selectable)
             {
-                currentSelectTarget?.ExitCursor();
-                currentSelectTarget = selectable;
-                currentSelectTarget.EnterCursor();
+                currentSelectedTarget?.ExitCursor();
+                currentSelectedTarget = selectable;
+                currentSelectedTarget.EnterCursor();
             }
         }
         else
         {
-            if (currentSelectTarget != null)
+            if (currentSelectedTarget != null)
             {
-                currentSelectTarget.ExitCursor();
-                currentSelectTarget = null;
+                currentSelectedTarget.ExitCursor();
+                currentSelectedTarget = null;
             }
         }
-        currentSelectTarget?.StayCursor();
+        currentSelectedTarget?.StayCursor();
     }
 
     public bool IsSelectable(out Selectable selectable)

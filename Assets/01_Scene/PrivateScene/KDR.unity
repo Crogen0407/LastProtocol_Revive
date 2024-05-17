@@ -970,6 +970,7 @@ MonoBehaviour:
   whatIsSelectable:
     serializedVersion: 2
     m_Bits: 64
+  isSelectable: 0
 --- !u!1 &1697657355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,10 +1207,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceAmountArr: []
+  isMakeable: 0
   makeResource: 19
   makeTime: 1
   speed: 5
-  isMakeable: 1
 --- !u!58 &1984312550
 CircleCollider2D:
   m_ObjectHideFlags: 0

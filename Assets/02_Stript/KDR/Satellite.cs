@@ -6,14 +6,14 @@ public class Satellite : ResourceStorage
 {
     public static Satellite satellite;
 
+
     [Header("ResourceMakeSetting")]
+    [SerializeField] private bool isMakeable = true;
+
     [SerializeField] private Resource makeResource;
     [SerializeField] private float makeTime = 1f;
-    private float currentMakeTime = 0f;
-
-
-    [Header("ResourceMakeSetting")]
     [SerializeField] private float speed = 5f;
+    private float currentMakeTime = 0f;
 
     private Vector2 targetPos;
 
@@ -57,9 +57,6 @@ public class Satellite : ResourceStorage
             yield return null;
         }
     }
-
-    [SerializeField]
-    private bool isMakeable = true;
 
     protected override void Awake()
     {
