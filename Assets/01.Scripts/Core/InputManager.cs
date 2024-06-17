@@ -8,9 +8,11 @@ public class InputManager : MonoSingleton<InputManager>
 {
     public InputReader inputReader;
     public Vector2 mouseWorldPos;
+    public Vector2 mouseScenePos;
 
     private void Update()
     {
-        mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseScenePos = Input.mousePosition;
+        mouseWorldPos = UnityEngine.Camera.main.ScreenToWorldPoint(mouseScenePos);
     }
 }

@@ -22,9 +22,9 @@ public class Satellite : ResourceStorage
 
     Coroutine moveCoroutine;
 
-    public override void MouseDown(Vector2 mousePos)
+    public override void MouseClick(Vector2 mousePos)
     {
-        base.MouseDown(mousePos);
+        base.MouseClick(mousePos);
 
         if (satellite != null) return;
 
