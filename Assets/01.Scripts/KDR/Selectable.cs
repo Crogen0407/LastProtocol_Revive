@@ -27,7 +27,7 @@ public class Selectable : MonoBehaviour
     {
         material.SetInt(onSelectMatHash, 0);
     }
-    public virtual void MouseClick(Vector2 mousePos)
+    public virtual void OnMouseClick()
     {
 
     }

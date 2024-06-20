@@ -12,19 +12,21 @@ public class SimpleUI : MonoBehaviour, IMovableUI
     [SerializeField] private AnimationCurve _hideCurve;
     [SerializeField] private float _moveTime;
 
-    private RectTransform _rectTransform;
+    protected RectTransform _rectTransform;
     private Sequence _moveSeq;
     private Action _action;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _rectTransform = transform as RectTransform;
     }
 
-    public Action Move(bool value)
+    public virtual Action Move(bool value)
     {
         Vector2 startPos = value ? _hidePos : _showPos;
         Vector2 endPos = value ? _showPos : _hidePos;
+        if (_rectTransform.anchoredPosition == endPos) return null;
+
         AnimationCurve curve = value ? _showCurve : _hideCurve;
 
         _rectTransform.anchoredPosition = startPos;

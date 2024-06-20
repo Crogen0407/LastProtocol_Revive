@@ -4,45 +4,30 @@ using UnityEngine;
 
 public class Satellite : ResourceStorage
 {
-    public static Satellite satellite;
-
-
     [Header("ResourceMakeSetting")]
-    [SerializeField] private bool isMakeable = true;
+    [SerializeField] private bool _isMakeable = true;
 
-    [SerializeField] private Resource makeResource;
-    [SerializeField] private float makeTime = 1f;
-    [SerializeField] private float speed = 5f;
-    private float currentMakeTime = 0f;
+    [SerializeField] private Resource _makeResource;
+    [SerializeField] private float _makeTime = 1f;
+    [SerializeField] private float _speed = 5f;
+    private float _currentMakeTime = 0f;
 
-    private Vector2 targetPos;
+    private Vector2 _targetPos;
 
 
-    private Dictionary<Resource, int> currentMakeResourceRecipeDictionary = null;
+    private Dictionary<Resource, int> _currentMakeResourceRecipeDictionary = null;
 
-    Coroutine moveCoroutine;
 
-    public override void MouseClick(Vector2 mousePos)
+    public override void OnMouseClick()
     {
-        base.MouseClick(mousePos);
+        base.OnMouseClick();
 
-        if (satellite != null) return;
-
-        if (satellite == this)
-        {
-            targetPos = mousePos;
-
-            if (moveCoroutine != null) StopCoroutine(moveCoroutine);
-            moveCoroutine = StartCoroutine(MoveCoroutine());
-
-            return;
-        }
-        satellite = this;
+        UIManager.Instance.OpenSatelliteData(this);
     }
 
     private IEnumerator MoveCoroutine()
     {
-        float time = targetPos.magnitude / speed;
+        float time = _targetPos.magnitude / _speed;
         float percent = 0;
         float current = 0;
 
@@ -53,7 +38,7 @@ public class Satellite : ResourceStorage
             current += Time.deltaTime;
             percent = current / time;
 
-            transform.position = Vector2.Lerp(startPos, targetPos, percent);
+            transform.position = Vector2.Lerp(startPos, _targetPos, percent);
             yield return null;
         }
     }
@@ -73,11 +58,11 @@ public class Satellite : ResourceStorage
 
     private void Update()
     {
-        if (isMakeable)
+        if (_isMakeable)
         {
-            if (currentMakeTime > 0)
+            if (_currentMakeTime > 0)
             {
-                currentMakeTime -= Time.deltaTime;
+                _currentMakeTime -= Time.deltaTime;
             }
             else
             {
@@ -92,32 +77,32 @@ public class Satellite : ResourceStorage
 
     public void ChangeMakeResource(Resource resource)
     {
-        if (ResourceManager.Instance.GetResourceSO(makeResource).makingTime == -1)
+        if (ResourceManager.Instance.GetResourceSO(_makeResource).makingTime == -1)
         {
             Debug.Log($"{resource}는 만들 수 없는 자원입니다");
             return;
         } 
 
-        makeResource = resource;
-        makeTime = ResourceManager.Instance.GetResourceSO(makeResource).makingTime;
-        currentMakeTime = makeTime;
-        currentMakeResourceRecipeDictionary = 
-            ResourceManager.Instance.GetResourceSO(makeResource).RecipeResourceCountDictionary;
+        _makeResource = resource;
+        _makeTime = ResourceManager.Instance.GetResourceSO(_makeResource).makingTime;
+        _currentMakeTime = _makeTime;
+        _currentMakeResourceRecipeDictionary = 
+            ResourceManager.Instance.GetResourceSO(_makeResource).RecipeResourceCountDictionary;
     }
 
     private void Make()
     {
-        if (currentMakeResourceRecipeDictionary == null) return;
-        var resources = currentMakeResourceRecipeDictionary.Keys;
+        if (_currentMakeResourceRecipeDictionary == null) return;
+        var resources = _currentMakeResourceRecipeDictionary.Keys;
 
         //자원이 있는지 검사
         bool flag = false;
         foreach (Resource keyResource in resources)
         {
-            if (GetResource(keyResource) < currentMakeResourceRecipeDictionary[keyResource])
+            if (GetResource(keyResource) < _currentMakeResourceRecipeDictionary[keyResource])
             {
                 Debug.Log($"{keyResource}이 부족\n" +
-                    $"요구개수: {currentMakeResourceRecipeDictionary[keyResource]}");
+                    $"요구개수: {_currentMakeResourceRecipeDictionary[keyResource]}");
                 flag = true;
             }
         }
@@ -126,9 +111,9 @@ public class Satellite : ResourceStorage
         //자원을 빼고 생산품 추가
         foreach (Resource keyResource in resources)
         {
-            SubtractResource(keyResource, currentMakeResourceRecipeDictionary[keyResource]);
+            SubtractResource(keyResource, _currentMakeResourceRecipeDictionary[keyResource]);
         }
-        AddResource(makeResource, 1);
-        currentMakeTime = makeTime;
+        AddResource(_makeResource, 1);
+        _currentMakeTime = _makeTime;
     }
 }

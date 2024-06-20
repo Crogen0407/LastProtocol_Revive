@@ -15,7 +15,7 @@ public class CameraPos : MonoBehaviour
         InputManager.Instance.inputReader.MouseDownEvent += HandleMouseDownEvent;
         InputManager.Instance.inputReader.MouseUpEvent += HandleMouseUpEvent;
     }
-
+     
     private void Update()
     {
         transform.position += _velocity;

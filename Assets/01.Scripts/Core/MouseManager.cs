@@ -37,7 +37,7 @@ public class MouseManager : MonoSingleton<MouseManager>
         isClicked = false;
         if (isDrag == false)
         {
-            currentSelectedTarget?.MouseClick(InputManager.Instance.mouseWorldPos);
+            currentSelectedTarget?.OnMouseClick();
         }
     }
 
@@ -75,6 +75,8 @@ public class MouseManager : MonoSingleton<MouseManager>
 
     private void CheckSelect()
     {
+        if (GameManager.Instance.PlayerMode == PlayerMode.Setting) return;
+
         if (isSelectable == false && IsSelectable(out Selectable selectable))
         {
             if (currentSelectedTarget != selectable)
