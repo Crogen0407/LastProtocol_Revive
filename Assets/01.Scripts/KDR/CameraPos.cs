@@ -39,4 +39,10 @@ public class CameraPos : MonoBehaviour
         float _scenePixelToWorldPos = cameraHight / screenHight;
         _velocity = (Vector3)movement * _scenePixelToWorldPos;
     }
+
+    public void SetParent(Transform trm, bool resetPos = false)
+    {
+        transform.SetParent(trm);
+        if (resetPos) transform.localPosition = Vector3.zero;
+    }
 }

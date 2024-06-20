@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerMode
+public enum PlayMode
 {
-    Default,
-    Setting
+    Default = 1,
+    Setting = 2,
+    PosMove = 4
 }
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    public PlayerMode PlayerMode = PlayerMode.Default;
+    public PlayMode PlayMode = PlayMode.Default;
 }

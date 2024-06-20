@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,11 +28,14 @@ public class DataUI : MonoBehaviour
         _resourceListUI.Move(true);
         _satelliteDataUI.Move(true);
         _backSimpleUI.Move(true);
+        _satelliteDataUI.HideMoveMode();
+        CameraManager.Instance.SetForcus(satellite.transform);
     }
     public void HideSatellitePanel()
     {
         _satelliteDataUI.Move(false);
         _resourceListUI.Move(false);
         _backSimpleUI.Move(false);
+        CameraManager.Instance.SetForcus();
     }
 }

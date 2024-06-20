@@ -35,14 +35,28 @@ public class MouseManager : MonoSingleton<MouseManager>
     private void HandleMouseUpEvent()
     {
         isClicked = false;
+
+
         if (isDrag == false)
         {
-            currentSelectedTarget?.OnMouseClick();
+            if (GameManager.Instance.PlayMode == PlayMode.PosMove)
+            {
+                Satellite satellite = currentSelectedTarget as Satellite;
+                satellite.Move(InputManager.Instance.mouseWorldPos);
+                UIManager.Instance.OpenSatelliteData(satellite);
+            }
+
+            if (GameManager.Instance.PlayMode == PlayMode.Default)
+            {
+                currentSelectedTarget?.OnMouseClick();
+            }
         }
     }
 
     private void Update()
     {
+        if (GameManager.Instance.PlayMode == PlayMode.Setting) return;
+
         CheckSelect();
         CheckDrag();
         CheckWheel();
@@ -75,7 +89,7 @@ public class MouseManager : MonoSingleton<MouseManager>
 
     private void CheckSelect()
     {
-        if (GameManager.Instance.PlayerMode == PlayerMode.Setting) return;
+        if (GameManager.Instance.PlayMode == PlayMode.PosMove) return;
 
         if (isSelectable == false && IsSelectable(out Selectable selectable))
         {

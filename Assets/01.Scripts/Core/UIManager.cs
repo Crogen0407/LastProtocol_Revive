@@ -10,11 +10,11 @@ public class UIManager : MonoSingleton<UIManager>
     public void OpenSatelliteData(Satellite satellite)
     {
         _dataUI.ShowSatellitePanel(satellite);
-        GameManager.Instance.PlayerMode = PlayerMode.Setting;
+        GameManager.Instance.PlayMode = PlayMode.Setting;
     }
     public void CloseSatelliteData()
     {
         _dataUI.HideSatellitePanel();
-        GameManager.Instance.PlayerMode = PlayerMode.Default;
+        GameManager.Instance.PlayMode = PlayMode.Default;
     }
 }
