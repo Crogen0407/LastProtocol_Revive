@@ -10,13 +10,11 @@ public class Satellite : ResourceStorage
     [SerializeField] private Resource _makeResource;
     [SerializeField] private float _makeTime = 1f;
     [SerializeField] private float _speed = 5f;
-    [SerializeField] private Transform _targetIconTrm;
-    [SerializeField] private TargetIcon _targetIconPrefab;
+    private TargetIcon _targetIcon;
     private float _currentMakeTime = 0f;
 
     private Dictionary<Resource, int> _currentMakeResourceRecipeDictionary = null;
     private Coroutine _moveCoroutine;
-    private TargetIcon _targetIcon;
 
     public override void OnMouseClick()
     {
@@ -31,15 +29,14 @@ public class Satellite : ResourceStorage
         {
             StopCoroutine(_moveCoroutine);
             _moveCoroutine = null;
-            Destroy(_targetIcon.transform.gameObject);
-        }
+            _targetIcon.Init(transform, pos);
+        };
         _moveCoroutine = StartCoroutine(MoveCoroutine(pos));
     }
 
     private IEnumerator MoveCoroutine(Vector2 targetPos)
     {
-        _targetIcon = Instantiate(_targetIconPrefab, targetPos, Quaternion.identity);
-        _targetIcon.transform.SetParent(_targetIconTrm);
+        _targetIcon.SetActive(true);
         _targetIcon.Init(transform, targetPos);
         float targetDis = (targetPos - (Vector2)transform.position).magnitude;
         float time = targetDis / _speed;
@@ -56,15 +53,16 @@ public class Satellite : ResourceStorage
             transform.position = Vector2.Lerp(startPos, targetPos, percent);
             yield return null;
         }
-        Destroy(_targetIcon.transform.gameObject);
+        _moveCoroutine = null;
+        _targetIcon.SetActive(false);
     }
 
     protected override void Awake()
     {
         base.Awake();
+
+        _targetIcon = transform.Find("TargetIcon").GetComponent<TargetIcon>();
     }
-
-
 
     //Å×½ºÆ®
     private void Start()
