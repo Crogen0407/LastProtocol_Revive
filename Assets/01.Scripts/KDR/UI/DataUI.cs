@@ -17,14 +17,10 @@ public class DataUI : MonoBehaviour
         _backBtn.onClick.AddListener(UIManager.Instance.CloseSatelliteData);
     }
 
-    private void SetResourcePanel(ResourceAndCount[] resourceAndCount)
-    {
-        //리소스 정렬
-    }
-
     public void ShowSatellitePanel(Satellite satellite)
     {
-        SetResourcePanel(satellite.resourceAmountArr);
+        GameManager.Instance.PlayMode = PlayMode.Setting;
+        _resourceListUI.SetResourcePanel(satellite);
         _resourceListUI.Move(true);
         _satelliteDataUI.Move(true);
         _backSimpleUI.Move(true);
@@ -33,6 +29,7 @@ public class DataUI : MonoBehaviour
     }
     public void HideSatellitePanel()
     {
+        GameManager.Instance.PlayMode = PlayMode.Default;
         _satelliteDataUI.Move(false);
         _resourceListUI.Move(false);
         _backSimpleUI.Move(false);

@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 [System.Serializable]
 public struct ResourceAndCount
@@ -14,37 +12,40 @@ public struct ResourceAndCount
 
 public class ResourceStorage : Selectable
 {
-    public ResourceAndCount[] resourceAmountArr;
+    private Dictionary<ResourceType, int> resourceAmountDictionary
+        = new Dictionary<ResourceType, int>();
+    public Action<ResourceType, int> resourceChangedEvent;
 
     protected override void Awake()
     {
         base.Awake();
-        resourceAmountArr = new ResourceAndCount[(int)Resource.Count];
 
-        string[] names = Enum.GetNames(typeof(Resource));
-        for (int i = 0; i < resourceAmountArr.Length; i++)
+        foreach (ResourceType resourceType in Enum.GetValues(typeof(ResourceType)))
         {
-            resourceAmountArr[i].name = names[i];
+            resourceAmountDictionary.Add(resourceType, 0);
         }
     }
 
-    public int GetResource(Resource resource)
+    public int GetResourceAmount(ResourceType resource)
     {
-        return resourceAmountArr[(int)resource].count;
+        return resourceAmountDictionary[resource];
     }
-    public void SetResource(Resource resource, int count)
+    public void SetResourceAmount(ResourceType resource, int count)
     {
-        resourceAmountArr[(int)resource].count = count;
+        resourceAmountDictionary[resource] = count;
+        resourceChangedEvent?.Invoke(resource, count);
     }
-    public void AddResource(Resource resource, int count)
+    public void AddResourceAmount(ResourceType resource, int count)
     {
-        resourceAmountArr[(int)resource].count += count;
+        resourceAmountDictionary[resource] += count;
+        resourceChangedEvent?.Invoke(resource, resourceAmountDictionary[resource]);
     }
-    public bool SubtractResource(Resource resource, int count)
+    public bool SubtractResourceAmount(ResourceType resource, int count)
     {
-        if (resourceAmountArr[(int)resource].count < count) return false;
-
-        resourceAmountArr[(int)resource].count -= count;
+        if (resourceAmountDictionary[resource] < count) return false;
+            
+        resourceAmountDictionary[resource] -= count;
+        resourceChangedEvent?.Invoke(resource, resourceAmountDictionary[resource]);
         return true;
     }
 }

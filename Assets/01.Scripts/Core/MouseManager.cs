@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MouseManager : MonoSingleton<MouseManager>
 {
@@ -39,16 +40,19 @@ public class MouseManager : MonoSingleton<MouseManager>
 
         if (isDrag == false)
         {
-            if (GameManager.Instance.PlayMode == PlayMode.PosMove)
+            if (EventSystem.current.IsPointerOverGameObject() == false)
             {
-                Satellite satellite = currentSelectedTarget as Satellite;
-                satellite.Move(InputManager.Instance.mouseWorldPos);
-                UIManager.Instance.OpenSatelliteData(satellite);
-            }
+                if (GameManager.Instance.PlayMode == PlayMode.PosMove)
+                {
+                    Satellite satellite = currentSelectedTarget as Satellite;
+                    satellite.Move(InputManager.Instance.mouseWorldPos);
+                    UIManager.Instance.OpenSatelliteData(satellite);
+                }
 
-            if (GameManager.Instance.PlayMode == PlayMode.Default)
-            {
-                currentSelectedTarget?.OnMouseClick();
+                if (GameManager.Instance.PlayMode == PlayMode.Default)
+                {
+                    currentSelectedTarget?.OnMouseClick();
+                }
             }
         }
     }

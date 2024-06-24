@@ -1,7 +1,10 @@
 using System;
+using static UnityEditor.Experimental.GraphView.GraphView;
+using static UnityEngine.UI.GridLayoutGroup;
+using System.Security.Cryptography;
 
 [Serializable]
-public enum Resource
+public enum ResourceType
 {
     //∞Ì√º
     None,

@@ -6,7 +6,7 @@ public class TargetIcon : MonoBehaviour
 {
     private LineRenderer _lineRenderer;
     private readonly int RotationHash = Shader.PropertyToID("_Rotate");
-    private Transform _stalliteTrm;
+    private Transform _satelliteTrm;
     private Vector3 _position;
 
     private void Awake()
@@ -17,7 +17,7 @@ public class TargetIcon : MonoBehaviour
 
     public void Init(Transform onwer, Vector3 targetPos)
     {
-        _stalliteTrm = onwer;
+        _satelliteTrm = onwer;
         _position = targetPos;
 
         _lineRenderer.SetPosition(1, targetPos);
@@ -25,15 +25,11 @@ public class TargetIcon : MonoBehaviour
 
         float rotation = Mathf.Atan2(moveDir.y, moveDir.x);
         _lineRenderer.material.SetFloat(RotationHash, rotation);
-        Debug.Log("===================");
-        Debug.Log(_lineRenderer.material.GetFloat(RotationHash));
-        Debug.Log(rotation);
-        Debug.Log("===================");
     }
 
     private void Update()
     {
-        _lineRenderer.SetPosition(0, _stalliteTrm.position);
+        _lineRenderer.SetPosition(0, _satelliteTrm.position);
         transform.position = _position;
     }
 

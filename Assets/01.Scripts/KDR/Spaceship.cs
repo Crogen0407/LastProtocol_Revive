@@ -5,78 +5,62 @@ using Random = UnityEngine.Random;
 public class Spaceship : Selectable
 {
     [Header("Spaceship Setting")]
-    [SerializeField]
-    private float defaultSpeed = 10;
-    [SerializeField]
-    private float loadingSpeed = 1f;
-    [SerializeField]
-    private float speedChangeSpeed = 7f;
-    private float cueentSpeed;
+    [SerializeField] private float _defaultSpeed = 10;
+    [SerializeField] private float _loadingSpeed = 1f;
+    [SerializeField] private float _speedChangeSpeed = 7f;
+    private float _cueentSpeed;
 
     [Space(10)]
-    [SerializeField]
-    private Resource currentLoadResource;
-    public Resource loadResource;
-    [SerializeField]
-    private int maxResourceLoadAmount = 10;
-    [SerializeField]
-    private int currentResourceLoadAmount = 0;
-    [SerializeField]
-    private float loadingTime = 0.25f;
-    [SerializeField]
-    private float loadingTimeDeviation = 0.05f;
+    [SerializeField] private ResourceType _currentLoadResource;
+    public ResourceType _loadResource;
+    [SerializeField] int _maxResourceLoadAmount = 10;
+    [SerializeField] private int _currentResourceLoadAmount = 0;
+    [SerializeField] private float _loadingTime = 0.25f;
+    [SerializeField] private float _loadingTimeDeviation = 0.05f;
 
     [Space(10)]
-    [SerializeField]
-    private float defaultRotationSpeed = 5f;
-    [SerializeField]
-    private float loadingRotationSpeed = 10f;
-    private Quaternion targetRotation;
+    [SerializeField] private float _defaultRotationSpeed = 5f;
+    [SerializeField] private float _loadingRotationSpeed = 10f;
+    private Quaternion _targetRotation;
 
 
     [Header("Link Setting")]
-    [SerializeField]
-    private ResourceStorage startResourceStorage;
-    [SerializeField]
-    private ResourceStorage endResourceStorage;
-    private ResourceStorage targetResourceStorage;
-    private float linkDistance
-        => (startResourceStorage.transform.position - endResourceStorage.transform.position).magnitude;
-    [SerializeField]
-    private float collisionRadius;
-    [SerializeField]
-    private LayerMask whatIsStorageObject;
+    [SerializeField] private ResourceStorage _startResourceStorage;
+    [SerializeField] private ResourceStorage _endResourceStorage;
+    private ResourceStorage _targetResourceStorage;
+    private float _linkDistance
+        => (_startResourceStorage.transform.position - _endResourceStorage.transform.position).magnitude;
+    private float _collisionRadius;
+    [SerializeField] private LayerMask _whatIsStorageObject;
 
-    private Coroutine resourceLoadReadyCoroutine = null;
+    private Coroutine _resourceLoadReadyCoroutine = null;
 
 
-    [SerializeField]
-    private bool isGoing = false;
-    [SerializeField]
-    private bool isLoading = false;
+    [SerializeField] private bool _isGoing = false;
+    [SerializeField] private bool _isLoading = false;
 
-    private bool canMove = true;
+    private bool _canMove = true;
 
     private void FixedUpdate()
     {
         if (IsLinkFinish())
         {
-            if (canMove)
+            if (_canMove)
             {
-                if (isLoading == false)
+                if (_isLoading == false)
                     CollisionCast();
                 Move();
             }
             Rotation();
 
-            collisionRadius = Mathf.Max(0.3f, cueentSpeed / 17);
+            _collisionRadius = Mathf.Max(0.3f, _cueentSpeed / 17);
         }
     }
 
     private void Update()
     {
-        if (loadResource != currentLoadResource && isGoing == false)
-            currentLoadResource = loadResource;
+        if (_loadResource != _currentLoadResource && _isGoing == false)
+            _currentLoadResource = _loadResource;
     }
 
     private void Start()
@@ -86,14 +70,14 @@ public class Spaceship : Selectable
 
     public void Initialize()
     {
-        isLoading = false;
-        isGoing = false;
-        canMove = true;
+        _isLoading = false;
+        _isGoing = false;
+        _canMove = true;
         //vv나중에 지울거vv
         if (IsLinkFinish())
-            targetResourceStorage = isGoing ? endResourceStorage : startResourceStorage;
-        resourceLoadReadyCoroutine = null;
-        currentResourceLoadAmount = 0;
+            _targetResourceStorage = _isGoing ? _endResourceStorage : _startResourceStorage;
+        _resourceLoadReadyCoroutine = null;
+        _currentResourceLoadAmount = 0;
     }
 
     #region 충돌
@@ -101,10 +85,10 @@ public class Spaceship : Selectable
     private Collider2D[] collisions;
     private void CollisionCast()
     {
-        collisions = Physics2D.OverlapCircleAll(transform.position, collisionRadius, whatIsStorageObject);
+        collisions = Physics2D.OverlapCircleAll(transform.position, _collisionRadius, _whatIsStorageObject);
         foreach (Collider2D coll in collisions)
         {
-            if (coll.transform == targetResourceStorage.transform)
+            if (coll.transform == _targetResourceStorage.transform)
             {
                 SpaceshipCollision(coll.transform.GetComponent<ResourceStorage>());
                 break;
@@ -114,68 +98,71 @@ public class Spaceship : Selectable
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, collisionRadius);
+        Gizmos.DrawWireSphere(transform.position, _collisionRadius);
     }
     public void SpaceshipCollision(ResourceStorage resourceStorage)
     {
-        if (isGoing)
+        if (_currentLoadResource != ResourceType.None && _currentLoadResource != ResourceType.Count)
         {
-            resourceStorage.AddResource(currentLoadResource, currentResourceLoadAmount);
-            currentResourceLoadAmount = 0;
-        }
-        else
-        {
-            if (resourceStorage.SubtractResource(currentLoadResource, maxResourceLoadAmount))
-                currentResourceLoadAmount = maxResourceLoadAmount;
+            if (_isGoing)
+            {
+                resourceStorage.AddResourceAmount(_currentLoadResource, _currentResourceLoadAmount);
+                _currentResourceLoadAmount = 0;
+            }
             else
             {
-                currentResourceLoadAmount = resourceStorage.GetResource(currentLoadResource);
-                resourceStorage.SetResource(currentLoadResource, 0);
+                if (resourceStorage.SubtractResourceAmount(_currentLoadResource, _maxResourceLoadAmount))
+                    _currentResourceLoadAmount = _maxResourceLoadAmount;
+                else
+                {
+                    _currentResourceLoadAmount = resourceStorage.GetResourceAmount(_currentLoadResource);
+                    resourceStorage.SetResourceAmount(_currentLoadResource, 0);
+                }
             }
         }
-        isGoing = !isGoing;
-        targetResourceStorage = isGoing ? endResourceStorage : startResourceStorage;
-        if (resourceLoadReadyCoroutine != null) StopCoroutine(resourceLoadReadyCoroutine);
-        resourceLoadReadyCoroutine = StartCoroutine(ResourceLoadReadyCoroutine());
+        _isGoing = !_isGoing;
+        _targetResourceStorage = _isGoing ? _endResourceStorage : _startResourceStorage;
+        if (_resourceLoadReadyCoroutine != null) StopCoroutine(_resourceLoadReadyCoroutine);
+        _resourceLoadReadyCoroutine = StartCoroutine(ResourceLoadReadyCoroutine());
     }
     private IEnumerator ResourceLoadReadyCoroutine()
     {
-        isLoading = true;
+        _isLoading = true;
         yield return new WaitForSeconds
-            (Random.Range(loadingTime - loadingTimeDeviation, loadingTime + loadingTimeDeviation));
-        isLoading = false;
+            (Random.Range(_loadingTime - _loadingTimeDeviation, _loadingTime + _loadingTimeDeviation));
+        _isLoading = false;
     }
     #endregion
 
     private void Move()
     {
-        cueentSpeed = Mathf.Lerp(cueentSpeed, (isLoading ? loadingSpeed : defaultSpeed),
-            Time.fixedDeltaTime * speedChangeSpeed);
-        transform.position += transform.up * cueentSpeed * Time.fixedDeltaTime;
+        _cueentSpeed = Mathf.Lerp(_cueentSpeed, (_isLoading ? _loadingSpeed : _defaultSpeed),
+            Time.fixedDeltaTime * _speedChangeSpeed);
+        transform.position += transform.up * _cueentSpeed * Time.fixedDeltaTime;
     }
 
     private void Rotation()
     {
-        targetRotation = Quaternion.LookRotation(
+        _targetRotation = Quaternion.LookRotation(
                 -Vector3.forward,
-                targetResourceStorage.transform.position - transform.position);
+                _targetResourceStorage.transform.position - transform.position);
         transform.rotation =
-            Quaternion.Lerp(transform.rotation, targetRotation,
-            (isLoading ? loadingRotationSpeed : defaultRotationSpeed) * Time.fixedDeltaTime);
+            Quaternion.Lerp(transform.rotation, _targetRotation,
+            (_isLoading ? _loadingRotationSpeed : _defaultRotationSpeed) * Time.fixedDeltaTime);
     }
 
     private bool IsLinkFinish()
     {
-        return endResourceStorage != null && startResourceStorage != null;
+        return _endResourceStorage != null && _startResourceStorage != null;
     }
 
 
     public void SetStartTrm(ResourceStorage storage)
     {
-        startResourceStorage = storage;
+        _startResourceStorage = storage;
     }
     public void SetEndtTrm(ResourceStorage storage)
     {
-        endResourceStorage = storage;
+        _endResourceStorage = storage;
     }
 }

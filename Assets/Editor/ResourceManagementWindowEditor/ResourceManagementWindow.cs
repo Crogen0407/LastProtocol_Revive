@@ -181,11 +181,15 @@ public class ResourceManagementWindow : EditorWindow
 
                 //Enum
                 _currentSelectedResourceSO.resource = 
-                    (Resource)EditorGUILayout.EnumPopup(_currentSelectedResourceSO.resource);
+                    (ResourceType)EditorGUILayout.EnumPopup(_currentSelectedResourceSO.resource);
                 
                 //Sprite
                 _currentSelectedResourceSO.sprite =
                     EditorGUILayout.ObjectField(_currentSelectedResourceSO.sprite, typeof(Sprite)) as Sprite;
+
+                //Name
+                _currentSelectedResourceSO.name =
+                    EditorGUILayout.TextField(_currentSelectedResourceSO.name);
                 
                 //RecipeArray
                 SerializedProperty property = o.FindProperty("recipe");

@@ -13,8 +13,8 @@ public class ResourceListSO : ScriptableObject
     [ContextMenu("SettingResources")]
     public void SettingResources()
     {
-        resourceList = new ResourceSO[(int)Resource.Count];
-        Resource[] resourceSOList = Enum.GetValues(typeof(Resource)) as Resource[];
+        resourceList = new ResourceSO[(int)ResourceType.Count];
+        ResourceType[] resourceSOList = Enum.GetValues(typeof(ResourceType)) as ResourceType[];
         for(int i = 0; i < resourceList.Length; i++)
         {
             resourceList[i].resource = resourceSOList[i];

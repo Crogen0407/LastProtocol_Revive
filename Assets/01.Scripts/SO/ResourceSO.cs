@@ -6,21 +6,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ResourceSO", menuName = "SO/Resource")]
 public class ResourceSO : ScriptableObject
 {
-    public Resource resource;
+    public ResourceType resource;
     public Sprite sprite;
-    public Resource[] recipe;
+    new public string name;
+    public ResourceType[] recipe;
     public float makingTime = -1f;
 
-    private Dictionary<Resource, int> recipeResourceCountDictionary;
-    public Dictionary<Resource, int> RecipeResourceCountDictionary
+    private Dictionary<ResourceType, int> recipeResourceCountDictionary;
+    public Dictionary<ResourceType, int> RecipeResourceCountDictionary
     {
         get
         {
             if (makingTime == -1) return null;
             if (recipeResourceCountDictionary == null)
             {
-                recipeResourceCountDictionary = new Dictionary<Resource, int>();
-                foreach (Resource resource in recipe)
+                recipeResourceCountDictionary = new Dictionary<ResourceType, int>();
+                foreach (ResourceType resource in recipe)
                 {
                     if (recipeResourceCountDictionary.TryAdd(resource, 1) == false)
                     {

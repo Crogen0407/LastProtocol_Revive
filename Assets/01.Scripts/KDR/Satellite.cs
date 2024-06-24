@@ -7,13 +7,13 @@ public class Satellite : ResourceStorage
     [Header("ResourceMakeSetting")]
     [SerializeField] private bool _isMakeable = true;
 
-    [SerializeField] private Resource _makeResource;
+    [SerializeField] private ResourceType _makeResource;
     [SerializeField] private float _makeTime = 1f;
     [SerializeField] private float _speed = 5f;
     private TargetIcon _targetIcon;
     private float _currentMakeTime = 0f;
 
-    private Dictionary<Resource, int> _currentMakeResourceRecipeDictionary = null;
+    private Dictionary<ResourceType, int> _currentMakeResourceRecipeDictionary = null;
     private Coroutine _moveCoroutine;
 
     public override void OnMouseClick()
@@ -86,10 +86,10 @@ public class Satellite : ResourceStorage
     }
     public void Initialize()
     {
-        ChangeMakeResource(Resource.Semiconductor);
+        ChangeMakeResource(ResourceType.Semiconductor);
     }
 
-    public void ChangeMakeResource(Resource resource)
+    public void ChangeMakeResource(ResourceType resource)
     {
         if (ResourceManager.Instance.GetResourceSO(_makeResource).makingTime == -1)
         {
@@ -111,9 +111,9 @@ public class Satellite : ResourceStorage
 
         //자원이 있는지 검사
         bool flag = false;
-        foreach (Resource keyResource in resources)
+        foreach (ResourceType keyResource in resources)
         {
-            if (GetResource(keyResource) < _currentMakeResourceRecipeDictionary[keyResource])
+            if (GetResourceAmount(keyResource) < _currentMakeResourceRecipeDictionary[keyResource])
             {
                 Debug.Log($"{keyResource}이 부족\n" +
                     $"요구개수: {_currentMakeResourceRecipeDictionary[keyResource]}");
@@ -123,11 +123,11 @@ public class Satellite : ResourceStorage
         if (flag) return;
 
         //자원을 빼고 생산품 추가
-        foreach (Resource keyResource in resources)
+        foreach (ResourceType keyResource in resources)
         {
-            SubtractResource(keyResource, _currentMakeResourceRecipeDictionary[keyResource]);
+            SubtractResourceAmount(keyResource, _currentMakeResourceRecipeDictionary[keyResource]);
         }
-        AddResource(_makeResource, 1);
+        AddResourceAmount(_makeResource, 1);
         _currentMakeTime = _makeTime;
     }
 }
