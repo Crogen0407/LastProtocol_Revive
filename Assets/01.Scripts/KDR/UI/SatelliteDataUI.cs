@@ -7,7 +7,7 @@ public class SatelliteDataUI : SimpleUI
 {
     [SerializeField] private Button _moveBtn, _moveExitBtn;
     [SerializeField] private SimpleUI _moveModeText;
-    private DataUI _dataUI;
+    private Satellite _satellite;
 
     protected override void Awake()
     {
@@ -16,9 +16,11 @@ public class SatelliteDataUI : SimpleUI
         _moveExitBtn.onClick.AddListener(HideMoveMode);
     }
 
-    public void Init(DataUI dataUI)
+    public void Init(Satellite satellite)
     {
-        _dataUI = dataUI;
+        _satellite = satellite;
+        _moveModeText.Move(false);
+        _moveExitBtn.GetComponent<IMovableUI>().Move(false);
     }
 
     private void ShowMoveMode()
@@ -30,6 +32,7 @@ public class SatelliteDataUI : SimpleUI
     }
     public void HideMoveMode()
     {
+        UIManager.Instance.OpenSatelliteData(_satellite);
         _moveModeText.Move(false);
         _moveExitBtn.GetComponent<IMovableUI>().Move(false);
     }

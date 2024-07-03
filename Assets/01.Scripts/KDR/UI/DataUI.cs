@@ -14,19 +14,19 @@ public class DataUI : MonoBehaviour
     private void Awake()
     {
         _backSimpleUI = _backBtn.GetComponent<SimpleUI>();
-        _backBtn.onClick.AddListener(UIManager.Instance.CloseSatelliteData);
+        _backBtn.onClick.AddListener(HideSatellitePanel);
     }
 
     public void ShowSatellitePanel(Satellite satellite)
     {
-        GameManager.Instance.PlayMode = PlayMode.Setting;
-        _resourceListUI.SetResourcePanel(satellite);
         _resourceListUI.Move(true);
         _satelliteDataUI.Move(true);
         _backSimpleUI.Move(true);
-        _satelliteDataUI.HideMoveMode();
-        CameraManager.Instance.SetForcus(satellite.transform);
+        GameManager.Instance.PlayMode = PlayMode.Setting;
+        _satelliteDataUI.Init(satellite);
+        _resourceListUI.SetResourcePanel(satellite);
     }
+
     public void HideSatellitePanel()
     {
         GameManager.Instance.PlayMode = PlayMode.Default;

@@ -10,6 +10,7 @@ public class UIManager : MonoSingleton<UIManager>
     public void OpenSatelliteData(Satellite satellite)
     {
         _dataUI.ShowSatellitePanel(satellite);
+        CameraManager.Instance.SetForcus(satellite.transform);
     }
     public void CloseSatelliteData()
     {

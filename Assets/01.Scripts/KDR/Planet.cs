@@ -15,7 +15,7 @@ public class Planet : ResourceStorage
         foreach (ResourceType resourceType in Enum.GetValues(typeof(ResourceType)))
         {
             if (resourceType == ResourceType.None || resourceType == ResourceType.Count) continue;
-            SetResourceAmount(resourceType, 1000);
+            SetResourceAmount(resourceType, 10000);
         }
     }
 }

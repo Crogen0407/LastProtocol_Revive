@@ -144,7 +144,7 @@ public class Spaceship : Selectable
     private void Rotation()
     {
         _targetRotation = Quaternion.LookRotation(
-                -Vector3.forward,
+                Vector3.back,
                 _targetResourceStorage.transform.position - transform.position);
         transform.rotation =
             Quaternion.Lerp(transform.rotation, _targetRotation,

@@ -5,12 +5,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ResourceCountUI : MonoBehaviour
+public class ResourceAmountUI : MonoBehaviour
 {
     private string _resourceName;
     [SerializeField] private TextMeshProUGUI _resourceCountText;
     [SerializeField] private Image _resourceIcon;
 
+    private int _targetAmount;
+    private int _currentAmount = 0;
 
     public void Init(ResourceType resource)
     {
@@ -20,14 +22,18 @@ public class ResourceCountUI : MonoBehaviour
         SetCount(0);
     }
 
-    public void SetCount(int count)
+    private void Update()
     {
-        if (count == 0)
-            gameObject.SetActive(false);
-        else
+        if (_currentAmount != _targetAmount)
         {
-            _resourceCountText.SetText($"{_resourceName} : {count}");
-            gameObject.SetActive(true);
+            _currentAmount++;
+            _resourceCountText.SetText($"{_resourceName} : {_currentAmount}");
         }
+    }
+
+    public void SetCount(int amount)
+    {
+        _targetAmount = amount;
+        gameObject.SetActive(amount != 0);
     }
 } 

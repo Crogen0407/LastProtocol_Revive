@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public class ResourceListUI : SimpleUI
 {
-    [SerializeField] private ResourceCountUI _resourceCountPrefab;
-    private Dictionary<ResourceType, ResourceCountUI> resourceCountUIDictionary 
-        = new Dictionary<ResourceType, ResourceCountUI>();
+    [SerializeField] private ResourceAmountUI _resourceCountPrefab;
+    private Dictionary<ResourceType, ResourceAmountUI> resourceCountUIDictionary 
+        = new Dictionary<ResourceType, ResourceAmountUI>();
     private ScrollRect _scrollRect;
     private RectTransform _listTrm;
     private ResourceStorage _currentResourceStorage;
@@ -24,7 +24,7 @@ public class ResourceListUI : SimpleUI
         {
             if (resourceType == ResourceType.None || resourceType == ResourceType.Count) continue;
 
-            ResourceCountUI resourceCountUI = Instantiate(_resourceCountPrefab, _listTrm);
+            ResourceAmountUI resourceCountUI = Instantiate(_resourceCountPrefab, _listTrm);
             resourceCountUI.Init(resourceType);
             resourceCountUIDictionary.Add(resourceType, resourceCountUI);
         }
